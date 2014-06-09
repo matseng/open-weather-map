@@ -1,12 +1,21 @@
 angular.module('OWMApp', ['ngRoute']);
 
 angular.module('OWMApp', ['ngRoute'])
-  .config(function($routeProvider){
-      $routeProvider.when('/', {
-          templateUrl : './home.html',
-          controller : 'HomeCtrl'
-      });
-  })
-  .controller('HomeCtrl', function($scope) {
-      //empty for now
-  });;
+    .config(function($routeProvider) {
+        $routeProvider.when('/', {
+            templateUrl : './home.html',
+            controller : 'HomeCtrl'
+        }).when('/cities/:city', {
+            templateUrl : './city.html',
+            controller : 'CityCtrl'
+        });
+    })
+    .controller('HomeCtrl', function($scope) {
+        //empty for now
+    })
+    .controller('CityCtrl', function($scope, $routeParams) {
+        $scope.city = $routeParams.city;
+    });
+
+
+  // $locationProvider.html5Mode(true);
