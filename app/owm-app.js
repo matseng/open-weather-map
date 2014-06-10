@@ -30,7 +30,7 @@ angular.module('OWMApp', ['ngRoute'])
           redirectTo : '/error'
         })
     })
-    // Note: $routeChangeError detects missing templates
+    // Note: $routeChangeError detects missing templates... but it's not a substitute for .otherwise
     .run(function($rootScope, $location) {
       $rootScope.$on('$routeChangeError', function() {
           console.log('Missing templates should be detected here...');
