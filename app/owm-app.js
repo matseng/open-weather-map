@@ -7,7 +7,7 @@ angular.module('OWMApp', ['ngRoute'])
         $routeProvider
         .when('/', {
             templateUrl : './home.html',
-            controller : 'HomeCtrl'
+            controller : 'HomeCtrl as home'
         })
         .when('/cities/:city', {
             templateUrl : './city.html',
@@ -25,10 +25,20 @@ angular.module('OWMApp', ['ngRoute'])
         })
         .when('/error', {
           template : '<p>Error Page Not Found</p>'
-        });
+        })
+        .otherwise({
+          redirectTo : '/error'
+        })
+    })
+    // Note: $routeChangeError detects missing templates
+    .run(function($rootScope, $location) {
+      $rootScope.$on('$routeChangeError', function() {
+          console.log('Missing templates should be detected here...');
+          $location.path('/error');
+      });
     })
     .controller('HomeCtrl', function($scope) {
-        //empty for now
+        this.welcomeMessage = 'Welcome home, world';
     })
     .controller('CityCtrl', function($scope, resolvedCity) {
         $scope.city = resolvedCity;
